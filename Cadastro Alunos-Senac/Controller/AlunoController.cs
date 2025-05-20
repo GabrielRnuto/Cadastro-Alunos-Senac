@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,27 @@ namespace Cadastro_Alunos_Senac.Controller
 
         }
 
+        public List<Aluno> ListarAlunos()
+        {
+            return alunos;
+        }
 
+        public bool AtualizarAluno(int id, string nome, string cpf, string curso, DateTime dataNascimento)
+        {
+            Aluno aluno = alunos.Find(a => a.Id == id);
+            if (aluno == null) return false;
+
+            aluno.Nome = nome;
+            aluno.Cpf = cpf;
+            aluno.Curso = curso;
+            aluno.DataNascimento = dataNascimento;
+            return true;
+        }
+
+        public bool ExcluirAluno(int id)
+        {
+            Aluno aluno = alunos.Find(a => a.Id == id);
+            return aluno != null && alunos.Remove(aluno);
+        }
     }
 }
